@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "232500350698",
+    "project_id": "buddyfoodapp",
+    "storage_bucket": "buddyfoodapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232500350698:android:29035e1337b56fa56ed193",
+        "android_client_info": {
+          "package_name": "com.example.food_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232500350698-0cuht88tkcv0cdc6ns1n6bhsqo5nbajq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.food_app",
+            "certificate_hash": "da5b6de88f23f39f83ee21b97cea1818468779bb"
+          }
+        },
+        {
+          "client_id": "232500350698-7j6eipr8i0ct0ckafqsi0cmkid768346.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOe_SaMpUoFvOhD5QqGs9R-UQcRoJ9JYE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "232500350698-7j6eipr8i0ct0ckafqsi0cmkid768346.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
