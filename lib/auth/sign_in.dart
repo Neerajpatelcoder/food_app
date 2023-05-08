@@ -1,27 +1,28 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-//import 'package:food_app/screens/home/home_screen.dart';
+import 'package:flutter_signin_button/button_view.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:food_app/providers/user_provider.dart';
+import 'package:food_app/screens/home/home_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:sign_button/sign_button.dart';
-//import 'package:food_app/screens/home/home_screen.dart';
+import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({super.key});
-
   @override
   State<SignIn> createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
+  set userProvider(UserProvider userProvider) {}
+
   _googleSignUp() async {
     try {
-      final GoogleSignIn googleSignIn = GoogleSignIn(
+      final GoogleSignIn _googleSignIn = GoogleSignIn(
         scopes: ['email'],
       );
-      // ignore: unused_local_variable
-      final FirebaseAuth auth = FirebaseAuth.instance;
+      final FirebaseAuth _auth = FirebaseAuth.instance;
 
-      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
 
@@ -30,7 +31,7 @@ class _SignInState extends State<SignIn> {
         idToken: googleAuth?.idToken,
       );
 
-      final User? user = (await auth.signInWithCredential(credential)).user;
+      final User? user = (await _auth.signInWithCredential(credential)).user;
       // print("signed in " + user.displayName);
 
       return user;
@@ -39,23 +40,18 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        // ignore: prefer_const_constructors
         decoration: BoxDecoration(
-          // ignore: prefer_const_constructors
           image: DecorationImage(
-              // ignore: prefer_const_constructors
-              fit: BoxFit.cover,
-              // ignore: prefer_const_constructors
-              image: AssetImage('assets/background.png')),
+              fit: BoxFit.cover, image: AssetImage('assets/background.png')),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // ignore: sized_box_for_whitespace
             Container(
               height: 400,
               width: double.infinity,
@@ -65,40 +61,35 @@ class _SignInState extends State<SignIn> {
                   Text('Sign in to contunue'),
                   Text(
                     'Vegi',
-                    style: TextStyle(
-                      fontSize: 50,
-                      color: Colors.white,
-                      shadows: [
-                        BoxShadow(
-                          blurRadius: 5,
-                          color: Colors.green.shade900,
-                          // ignore: prefer_const_constructors
-                          offset: Offset(3, 3),
-                        )
-                      ],
-                    ),
+                    style:
+                        TextStyle(fontSize: 50, color: Colors.white, shadows: [
+                      BoxShadow(
+                        blurRadius: 5,
+                        color: Colors.green.shade900,
+                        offset: Offset(3, 3),
+                      )
+                    ]),
                   ),
                   Column(
                     children: [
                       SignInButton(
-                          buttonType: ButtonType.apple,
-                          onPressed: () {
-                            print('click');
-                          }),
+                        Buttons.Apple,
+                        text: "Sign in with Apple",
+                        onPressed: () {},
+                      ),
                       SignInButton(
-                          buttonType: ButtonType.google,
-                          onPressed: () {
-                            _googleSignUp().then(
-                              (value) => Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  // ignore: prefer_const_constructors
-                                  builder: (context) => SignIn(),
-                                ),
+                        Buttons.Google,
+                        text: "Sign in with Google",
+                        onPressed: () async {
+                          await _googleSignUp().then(
+                            (value) => Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => HomeScreen(),
                               ),
-                            );
-                            // ignore: avoid_print
-                            print('click');
-                          }),
+                            ),
+                          );
+                        },
+                      ),
                     ],
                   ),
                   Column(
@@ -110,7 +101,7 @@ class _SignInState extends State<SignIn> {
                         ),
                       ),
                       Text(
-                        'term and privacy policy',
+                        'Terms and Pricacy Policy',
                         style: TextStyle(
                           color: Colors.grey[800],
                         ),
@@ -119,7 +110,7 @@ class _SignInState extends State<SignIn> {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
