@@ -15,12 +15,13 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   _googleSignUp() async {
     try {
-      final GoogleSignIn _googleSignIn = GoogleSignIn(
+      final GoogleSignIn googleSignIn = GoogleSignIn(
         scopes: ['email'],
       );
-      final FirebaseAuth _auth = FirebaseAuth.instance;
+      // ignore: unused_local_variable
+      final FirebaseAuth auth = FirebaseAuth.instance;
 
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
 
@@ -29,7 +30,7 @@ class _SignInState extends State<SignIn> {
         idToken: googleAuth?.idToken,
       );
 
-      final User? user = (await _auth.signInWithCredential(credential)).user;
+      final User? user = (await auth.signInWithCredential(credential)).user;
       // print("signed in " + user.displayName);
 
       return user;
@@ -46,11 +47,15 @@ class _SignInState extends State<SignIn> {
         decoration: BoxDecoration(
           // ignore: prefer_const_constructors
           image: DecorationImage(
-              fit: BoxFit.cover, image: AssetImage('assets/background.png')),
+              // ignore: prefer_const_constructors
+              fit: BoxFit.cover,
+              // ignore: prefer_const_constructors
+              image: AssetImage('assets/background.png')),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // ignore: sized_box_for_whitespace
             Container(
               height: 400,
               width: double.infinity,
@@ -67,6 +72,7 @@ class _SignInState extends State<SignIn> {
                         BoxShadow(
                           blurRadius: 5,
                           color: Colors.green.shade900,
+                          // ignore: prefer_const_constructors
                           offset: Offset(3, 3),
                         )
                       ],
@@ -85,10 +91,12 @@ class _SignInState extends State<SignIn> {
                             _googleSignUp().then(
                               (value) => Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
+                                  // ignore: prefer_const_constructors
                                   builder: (context) => SignIn(),
                                 ),
                               ),
                             );
+                            // ignore: avoid_print
                             print('click');
                           }),
                     ],
