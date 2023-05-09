@@ -4,23 +4,18 @@ import 'package:food_app/providers/user_provider.dart';
 import 'package:food_app/screens/home/home_screen.dart';
 import 'package:food_app/screens/my_profile/my_profile.dart';
 import 'package:food_app/screens/review_cart/review_cart.dart';
+import 'package:food_app/screens/wishList/wish_list.dart';
 
-// ignore: must_be_immutable
 class DrawerSide extends StatefulWidget {
   UserProvider userProvider;
   DrawerSide({super.key, required this.userProvider});
   @override
-  // ignore: library_private_types_in_public_api
   _DrawerSideState createState() => _DrawerSideState();
 }
 
 class _DrawerSideState extends State<DrawerSide> {
-  get WishLsit => null;
-
   Widget listTile(
-      {required String title,
-      required IconData iconData,
-      required Function onTap}) {
+      {required String title, IconData? iconData, required Function onTap}) {
     return Container(
       height: 50,
       child: ListTile(
@@ -40,11 +35,14 @@ class _DrawerSideState extends State<DrawerSide> {
   @override
   Widget build(BuildContext context) {
     var userData = widget.userProvider.currentUserData;
-    // ignore: prefer_typing_uninitialized_variables
-    var onTap2;
-    var onTap3;
-    var onTap4;
-    var onTap5;
+    var onTap2 = null;
+    var onTap3 = null;
+    var onTap5 = null;
+    var listTile2 = listTile(
+        iconData: Icons.copy_outlined,
+        title: "Raise a Complaint",
+        onTap: onTap5);
+    var onTap4 = null;
     return Drawer(
       child: Container(
         color: primaryColor,
@@ -55,21 +53,18 @@ class _DrawerSideState extends State<DrawerSide> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    // ignore: prefer_const_constructors
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 43,
                       backgroundColor: Colors.white54,
-                      // ignore: prefer_const_constructors
                       child: CircleAvatar(
                         backgroundColor: Colors.yellow,
-                        // ignore: prefer_const_constructors
                         backgroundImage: NetworkImage(
-                          'https://s3.envato.com/files/328957910/vegi_thumb.png',
+                          "https://s3.envato.com/files/328957910/vegi_thumb.png",
                         ),
                         radius: 40,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     Column(
@@ -124,39 +119,32 @@ class _DrawerSideState extends State<DrawerSide> {
             listTile(
                 iconData: Icons.notifications_outlined,
                 title: "Notificatio",
-                onTap: onTap2),
+                onTap: onTap3),
             listTile(
                 iconData: Icons.star_outline,
                 title: "Rating & Review",
-                onTap: onTap3),
+                onTap: onTap2),
             listTile(
                 iconData: Icons.favorite_outline,
                 title: "Wishlist",
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) {
-                        var wishLsit = WishLsit;
-                        return wishLsit();
-                      },
+                      builder: (context) => WishLsit(),
                     ),
                   );
                 }),
-            listTile(
-                iconData: Icons.copy_outlined,
-                title: "Raise a Complaint",
-                onTap: onTap4),
+            Container(child: listTile2),
             listTile(
                 iconData: Icons.format_quote_outlined,
                 title: "FAQs",
-                onTap: onTap5),
+                onTap: onTap4),
             Container(
               height: 350,
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // ignore: prefer_const_constructors
                   Text("Contact Support"),
                   SizedBox(
                     height: 10,
@@ -176,6 +164,7 @@ class _DrawerSideState extends State<DrawerSide> {
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
+                      // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         Text("Mail us:"),
                         SizedBox(
@@ -197,3 +186,5 @@ class _DrawerSideState extends State<DrawerSide> {
     );
   }
 }
+
+WishLsit() {}

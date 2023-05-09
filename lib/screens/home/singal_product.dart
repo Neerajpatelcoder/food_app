@@ -55,9 +55,9 @@ class _SingalProductState extends State<SingalProduct> {
                     height: 150,
                     padding: EdgeInsets.all(5),
                     width: double.infinity,
-                    child: Image.network(
-                      widget.productImage,
-                    ),
+                    child: Image.network(widget.productImage,
+                        semanticLabel:
+                            " https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMmVMJjFa5vosyqT_ylCwPVij691zOQd5R7A&usqp=CAU"),
                   ),
                 ),
                 Expanded(
